@@ -150,7 +150,9 @@ void MainWindow::DoShowResultInput() {
     is_new_input_ = true;
     can_edit_ = false;
 
-    if (current_operation_ == OperationType::NO_OPERATION) return;
+    if (current_operation_ == OperationType::NO_OPERATION){
+        return;
+    }
 
     CalculateResult(right_operand);
     input_number_ = QString::number(active_number_);
@@ -184,10 +186,13 @@ void MainWindow::DoNumberInput(QChar ch) {
 
 void MainWindow::DoDotDelimeterInput() {
 
-    if (is_dot_delimeter_set_) return;
+    if (is_dot_delimeter_set_){
+        return;
+    }
 
     if (is_new_input_) {
         input_number_ = '0';
+        is_dot_delimeter_set_ = false;
         is_new_input_ = false;
     }
 
@@ -210,12 +215,21 @@ void MainWindow::DoDeleteInput() {
 
     if ( can_edit_ ) {
 
-        if (input_number_.back() == '.') is_dot_delimeter_set_ = false;
-
-        if (input_number_.size() > 0) input_number_.truncate(input_number_.size() - 1);
-        if (input_number_.size() == 0) input_number_ = "0";
-        if (input_number_ == "-0") input_number_ = "0";
-        if (input_number_ == "-") input_number_ = "0";
+        if (input_number_.back() == '.'){
+            is_dot_delimeter_set_ = false;
+        }
+        if (input_number_.size() > 0){
+            input_number_.truncate(input_number_.size() - 1);
+        }
+        if (input_number_.size() == 0){
+            input_number_ = "0";
+        }
+        if (input_number_ == "-0"){
+            input_number_ = "0";
+        }
+        if (input_number_ == "-"){
+            input_number_ = "0";
+        }
 
         ui->l_result->setText(input_number_);
     }
@@ -276,13 +290,21 @@ QChar MainWindow::GetOperationSign(OperationType operation) const {
 
 
 void MainWindow::DoChangeSignInput() {
-    if (input_number_ == "0" ||  input_number_ == "nan") return;
+
+    if (input_number_ == "0" || input_number_ == "nan") {
+        return;
+    }
+
+    if (!can_edit_) {
+        return;
+    }
 
     if (input_number_.front() == '-') {
         input_number_.remove('-');
     } else {
         input_number_.push_front('-');
-    };
+    }
+
 
     ui->l_result->setText(input_number_);
 }
