@@ -186,14 +186,14 @@ void MainWindow::DoNumberInput(QChar ch) {
 
 void MainWindow::DoDotDelimeterInput() {
 
-    if (is_dot_delimeter_set_){
-        return;
-    }
-
     if (is_new_input_) {
         input_number_ = '0';
         is_dot_delimeter_set_ = false;
         is_new_input_ = false;
+    }
+
+    if (is_dot_delimeter_set_){
+        return;
     }
 
     input_number_.push_back('.');
