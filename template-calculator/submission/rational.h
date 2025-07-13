@@ -5,8 +5,6 @@
 #include <compare>
 #include <iostream>
 
-// Реализуйте класс Rational.
-
 class Rational {
 public:
     Rational(int numerator, int denominator)
@@ -74,23 +72,27 @@ public:
     }
 
     Rational operator+(const Rational& other) const {
-        return Rational(numerator_ * other.denominator_
-                            + denominator_ * other.numerator_, denominator_
-                            * other.denominator_);
+        Rational result = *this;
+        result += other;
+        return result;
     }
 
     Rational operator-(const Rational& other) const {
-        return Rational(numerator_ * other.denominator_
-                            - denominator_ * other.numerator_, denominator_
-                            * other.denominator_);
+        Rational result = *this;
+        result -= other;
+        return result;
     }
 
     Rational operator*(const Rational& other) const {
-        return Rational(numerator_ * other.numerator_, denominator_ * other.denominator_);
+        Rational result = *this;
+        result *= other;
+        return result;
     }
 
     Rational operator/(const Rational& other) const {
-        return Rational(numerator_ * other.denominator_, other.numerator_ * denominator_);
+        Rational result = *this;
+        result /= other;
+        return result;
     }
 
     auto operator<=>(const Rational& other) const {
